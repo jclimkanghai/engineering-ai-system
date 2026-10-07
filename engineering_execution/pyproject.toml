@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "engineering-execution"
+version = "0.1.13"
+description = "Bounded V2 tool execution using Engineering Registry memory and control"
+requires-python = ">=3.11"
+dependencies = ["engineering-registry>=0.1.18,<0.2"]
+
+[project.optional-dependencies]
+fem-opensees = ["openseespy==3.8.0.0"]
+
+[tool.setuptools]
+packages = ["engineering_execution"]
+package-dir = {engineering_execution = "."}

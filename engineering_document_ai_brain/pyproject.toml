@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "engineering-document-ai-brain"
+version = "0.1.13"
+description = "Document AI task structuring and evidence-bound V2 output assessment"
+requires-python = ">=3.11"
+dependencies = ["engineering-registry>=0.1.18,<0.2", "engineering-execution>=0.1.11,<0.2"]
+
+[tool.setuptools]
+packages = ["engineering_document_ai_brain"]
+package-dir = {engineering_document_ai_brain = "."}

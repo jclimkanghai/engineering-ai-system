@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "engineering-ai-reviewer"
+version = "0.1.0"
+description = "Provider-neutral client-alignment and project-assurance review gates"
+requires-python = ">=3.11"
+dependencies = ["engineering-registry>=0.1.18,<0.2"]
+
+[tool.setuptools]
+packages = ["engineering_ai_reviewer"]
+package-dir = {engineering_ai_reviewer = "."}
