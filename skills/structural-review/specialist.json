@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "skill_id": "structural-review",
+  "discipline": "structural",
+  "validation_status": "draft",
+  "validated_by": null,
+  "validation_reference": null,
+  "allowed_tools": ["compare_revision", "validate_traceability", "generate_review_pack", "fem_linear_static"]
+}
