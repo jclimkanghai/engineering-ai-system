@@ -1,0 +1,7 @@
+version: 1
+selection:
+  max_evidence: 12
+  max_chars: 24000
+  max_estimated_tokens: 6000
+  min_score: 0.0
+  remove_near_duplicates: true

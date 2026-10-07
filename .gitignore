@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.worktrees/
+
+.venv/
+.ruff_cache/
+.mypy_cache/
+data/
+reports/
+*.sqlite
+*.sqlite-*
+.platform-venv/
+*.egg-info/
+build/
+.env.local
+
+# Local credentials and project data
+.env
+.env.*
+!.env.example
+data/
+output/
+reports/
+real_project_cases/

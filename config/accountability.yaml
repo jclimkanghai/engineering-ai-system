@@ -1,0 +1,12 @@
+version: 1
+roles:
+  - responsible_party
+  - action_owner
+  - reviewer
+  - approver
+source_classes:
+  - explicit
+  - inferred
+  - assumed
+  - unknown
+unknown_assignment_requires_human_review: true

@@ -1,0 +1,210 @@
+version: 1
+
+risk_framework:
+
+  dimensions:
+
+    technical:
+      name: "Technical"
+      description: "Potential impact on safety, structural integrity, performance, reliability, operability or design compliance."
+
+    contractual:
+      name: "Contractual"
+      description: "Potential impact on contractual obligations, entitlement, scope, responsibility, variations, claims or compliance with the contract."
+
+    regulatory:
+      name: "Regulatory"
+      description: "Potential impact on statutory approvals, permits, authority requirements, legislation or regulatory compliance."
+
+    programme:
+      name: "Programme"
+      description: "Potential impact on design, procurement, construction, commissioning or project completion dates."
+
+    commercial:
+      name: "Commercial"
+      description: "Potential impact on cost, pricing, quantities, procurement, variation exposure, commercial assumptions or financial liability."
+
+    hse:
+      name: "Health, Safety and Environment"
+      description: "Potential impact on personnel safety, public safety, environmental protection or major accident risk."
+
+    constructability:
+      name: "Constructability"
+      description: "Potential impact on construction methodology, temporary works, marine operations, access, logistics, sequencing or feasibility of execution."
+
+    interface:
+      name: "Interface"
+      description: "Potential impact arising from unclear boundaries, dependencies or coordination between disciplines, contractors, authorities, vendors or stakeholders."
+
+    quality:
+      name: "Quality"
+      description: "Potential impact on inspection, testing, workmanship, quality assurance, quality control or acceptance requirements."
+
+    operability:
+      name: "Operability and Maintainability"
+      description: "Potential impact on operation, maintenance, inspection, access, reliability or lifecycle performance."
+
+  levels:
+
+    low:
+      description: "Minor issue with limited consequence."
+      typical_effect:
+        - "Limited technical clarification"
+        - "Minor documentation deficiency"
+        - "Low-cost correction"
+        - "No material impact on programme"
+      recommended_action: "Track and resolve during normal review."
+      escalation: false
+
+    medium:
+      description: "Issue that may require coordination, clarification or corrective action."
+      typical_effect:
+        - "Moderate design or documentation impact"
+        - "Potential additional engineering"
+        - "Potential minor cost or programme impact"
+        - "Requires responsible party to confirm"
+      recommended_action: "Raise for review and close before the affected work proceeds."
+      escalation: false
+
+    high:
+      description: "Significant issue with credible impact on project delivery, compliance, cost, programme or technical performance."
+      typical_effect:
+        - "Material design change"
+        - "Significant scope uncertainty"
+        - "Potential variation or claim"
+        - "Potential regulatory or contractual non-compliance"
+        - "Potential programme impact"
+        - "Significant constructability concern"
+      recommended_action: "Escalate to the responsible technical, project or commercial authority and establish a formal action."
+      escalation: true
+
+    critical:
+      description: "Issue with potentially severe consequences to safety, statutory compliance, contractual obligations, project viability or major cost/programme exposure."
+      typical_effect:
+        - "Potential life-safety consequence"
+        - "Major regulatory non-compliance"
+        - "Fundamental contractual ambiguity"
+        - "Major scope omission"
+        - "Potential project-stopping constraint"
+        - "Major structural or engineering failure risk"
+        - "Major programme or commercial exposure"
+      recommended_action: "Immediate escalation and formal resolution before proceeding with the affected activity."
+      escalation: true
+
+  likelihood:
+
+    rare:
+      score: 1
+      description: "Highly unlikely to occur."
+
+    unlikely:
+      score: 2
+      description: "Unlikely but reasonably conceivable."
+
+    possible:
+      score: 3
+      description: "Could occur under foreseeable conditions."
+
+    likely:
+      score: 4
+      description: "Expected to occur without mitigation."
+
+    almost_certain:
+      score: 5
+      description: "Very likely or effectively expected to occur."
+
+  consequence:
+
+    insignificant:
+      score: 1
+      description: "Negligible consequence."
+
+    minor:
+      score: 2
+      description: "Limited consequence with manageable correction."
+
+    moderate:
+      score: 3
+      description: "Material consequence requiring coordinated action."
+
+    major:
+      score: 4
+      description: "Significant consequence affecting project objectives."
+
+    severe:
+      score: 5
+      description: "Severe consequence affecting safety, compliance, viability or major project objectives."
+
+  response_priorities:
+
+    monitor:
+      description: "Accept or monitor through normal project controls."
+
+    resolve:
+      description: "Specific action required to close the issue."
+
+    escalate:
+      description: "Escalate to responsible project authority."
+
+    stop_work:
+      description: "Affected activity should not proceed until the issue is resolved."
+
+  rules:
+
+    - id: "RISK-001"
+      rule: "A life-safety or major public-safety concern shall not be downgraded solely because its likelihood is low."
+      minimum_level: "high"
+
+    - id: "RISK-002"
+      rule: "A potential statutory or regulatory non-compliance shall normally be classified at least as high until the governing requirement and compliance status are verified."
+      minimum_level: "high"
+
+    - id: "RISK-003"
+      rule: "A fundamental contractual scope ambiguity affecting price, responsibility or deliverables shall normally be classified at least as high."
+      minimum_level: "high"
+
+    - id: "RISK-004"
+      rule: "A finding affecting a critical design criterion shall be escalated where the available evidence is insufficient to demonstrate compliance."
+      minimum_level: "high"
+
+    - id: "RISK-005"
+      rule: "Where multiple independent risk dimensions are affected, the overall risk shall reflect the most significant credible consequence."
+      minimum_level: "medium"
+
+    - id: "RISK-006"
+      rule: "AI shall not infer a low risk merely because no adverse consequence is explicitly stated in the source documents."
+      minimum_level: "low"
+
+    - id: "RISK-007"
+      rule: "Unknown information shall be represented explicitly rather than silently converted into an assumption."
+      minimum_level: "low"
+
+  assessment_output:
+
+    required_fields:
+      - risk_id
+      - title
+      - description
+      - source
+      - source_location
+      - affected_document
+      - affected_revision
+      - risk_dimensions
+      - likelihood
+      - consequence
+      - overall_level
+      - confidence
+      - existing_controls
+      - recommended_action
+      - responsible_party
+      - status
+
+    status_values:
+      - open
+      - under_review
+      - action_required
+      - accepted
+      - mitigated
+      - closed
+      - superseded
+      - unable_to_verify

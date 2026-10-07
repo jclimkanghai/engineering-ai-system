@@ -1,0 +1,552 @@
+version: 1
+
+config:
+  name: engineering_document_ai_docling
+  description: >
+    Project-independent Docling ingestion configuration for Engineering
+    Document AI. Defines document conversion, OCR, layout, table extraction,
+    provenance, quality assessment, chunking and failure handling.
+
+  purpose:
+    - convert engineering documents into structured machine-readable content
+    - preserve document structure and reading order
+    - extract tables and engineering requirements
+    - preserve page and element provenance
+    - support downstream retrieval and RAG
+    - identify extraction uncertainty before engineering analysis
+
+  principle:
+    >
+      Docling is the document ingestion and understanding layer.
+      It shall not be treated as the engineering reasoning or verification engine.
+
+
+# ---------------------------------------------------------------------------
+# 1. Supported Input Documents
+# ---------------------------------------------------------------------------
+
+input:
+
+  supported_formats:
+
+    documents:
+      - pdf
+      - docx
+      - pptx
+      - xlsx
+      - html
+      - csv
+      - txt
+      - md
+
+    engineering:
+      - scanned_pdf
+      - drawing_pdf
+      - calculation_pdf
+      - specification_pdf
+      - tender_document_pdf
+      - report_pdf
+
+  preferred_format:
+    primary: pdf
+    reason: >
+      Engineering tenders and technical submissions are predominantly
+      distributed as controlled PDF documents.
+
+  batch_processing:
+    enabled: true
+    preserve_file_names: true
+    continue_on_error: true
+
+  file_integrity:
+    calculate_hash: true
+    algorithm: sha256
+    store_hash: true
+
+
+# ---------------------------------------------------------------------------
+# 2. Conversion
+# ---------------------------------------------------------------------------
+
+conversion:
+
+  engine:
+    name: docling
+    minimum_major_version: 2
+
+  output_formats:
+
+    primary:
+      - json
+      - markdown
+
+    secondary:
+      - html
+      - text
+
+    optional:
+      - doctags
+      - chunks
+
+  preserve_structure: true
+  preserve_reading_order: true
+  preserve_page_boundaries: true
+  preserve_element_metadata: true
+
+  export:
+
+    markdown:
+      enabled: true
+      include_headings: true
+      include_tables: true
+      include_lists: true
+      include_figures: true
+      include_page_markers: true
+
+    json:
+      enabled: true
+      include_document_structure: true
+      include_provenance: true
+      include_page_information: true
+      include_table_structure: true
+      include_figures: true
+
+    html:
+      enabled: true
+
+    text:
+      enabled: true
+
+  directory_structure:
+
+    raw:
+      path: data/raw
+
+    processed:
+      path: data/processed
+
+    markdown:
+      path: data/processed/markdown
+
+    json:
+      path: data/processed/json
+
+    text:
+      path: data/processed/text
+
+    chunks:
+      path: data/processed/chunks
+
+    errors:
+      path: data/processed/errors
+
+    manifests:
+      path: data/processed/manifests
+
+
+# ---------------------------------------------------------------------------
+# 3. PDF Processing
+# ---------------------------------------------------------------------------
+
+pdf:
+
+  enabled: true
+
+  page_processing:
+    preserve_page_number: true
+    preserve_page_size: true
+    preserve_page_dimensions: true
+    detect_rotation: true
+
+  layout:
+    enabled: true
+    preserve_reading_order: true
+    detect_columns: true
+    detect_headers: true
+    detect_footers: true
+    detect_sidebars: true
+
+  engineering_layout:
+    detect_title_blocks: true
+    detect_revision_blocks: true
+    detect_drawing_numbers: true
+    detect_drawing_titles: true
+    detect_notes: true
+    detect_general_notes: true
+    detect_dimensions: true
+    detect_callouts: true
+    detect_legends: true
+
+  page_types:
+
+    normal_document:
+      enabled: true
+
+    engineering_drawing:
+      enabled: true
+
+    scanned_document:
+      enabled: true
+
+    calculation_sheet:
+      enabled: true
+
+    specification:
+      enabled: true
+
+    table_heavy:
+      enabled: true
+
+
+# ---------------------------------------------------------------------------
+# 4. OCR
+# ---------------------------------------------------------------------------
+
+ocr:
+
+  enabled: true
+
+  trigger:
+
+    automatic: true
+
+    conditions:
+      - insufficient_embedded_text
+      - scanned_page
+      - image_only_page
+      - low_text_density
+      - failed_text_extraction
+
+  language:
+
+    primary:
+      - eng
+
+    optional:
+      - chi_sim
+      - chi_tra
+      - msa
+      - jpn
+
+  quality_control:
+
+    enabled: true
+
+    minimum_confidence: 0.80
+
+    low_confidence_action:
+      - flag
+      - preserve_original_page
+      - require_review_if_material
+
+  preserve_ocr_text: true
+  preserve_ocr_metadata: true
+
+  do_not_overwrite_original:
+    enabled: true
+
+
+# ---------------------------------------------------------------------------
+# 5. Tables
+# ---------------------------------------------------------------------------
+
+tables:
+
+  enabled: true
+
+  extraction:
+    mode: accurate
+    preserve_structure: true
+    preserve_rows: true
+    preserve_columns: true
+    preserve_headers: true
+    preserve_merged_cells: true
+    preserve_cell_text: true
+
+  engineering_tables:
+
+    detect:
+      - requirement_tables
+      - boq_tables
+      - equipment_schedules
+      - material_schedules
+      - design_parameter_tables
+      - revision_tables
+      - responsibility_matrices
+      - compliance_matrices
+      - inspection_tables
+      - testing_tables
+      - programme_tables
+      - quantity_tables
+
+  quality:
+
+    validate_row_alignment: true
+    validate_column_alignment: true
+    detect_empty_cells: true
+    detect_merged_cells: true
+    detect_truncated_cells: true
+
+  provenance:
+    preserve_table_id: true
+    preserve_page_number: true
+    preserve_bounding_box: true
+
+
+# ---------------------------------------------------------------------------
+# 6. Figures, Drawings and Images
+# ---------------------------------------------------------------------------
+
+figures:
+
+  enabled: true
+
+  extraction:
+    preserve_images: true
+    preserve_figures: true
+    preserve_captions: true
+    preserve_labels: true
+    preserve_page_reference: true
+    preserve_bounding_box: true
+
+  engineering_drawings:
+
+    enabled: true
+
+    detect:
+      - title_block
+      - drawing_number
+      - revision
+      - drawing_title
+      - scale
+      - dimensions
+      - notes
+      - references
+      - section_markers
+      - detail_markers
+      - grid_lines
+      - symbols
+      - legends
+
+    warning:
+      >
+        Drawing interpretation shall not be assumed to be complete from
+        text extraction alone. Visual review may be required for dimensions,
+        geometry, symbols, linework and spatial relationships.
+
+
+# ---------------------------------------------------------------------------
+# 7. Document Structure
+# ---------------------------------------------------------------------------
+
+structure:
+
+  preserve:
+
+    - title
+    - heading
+    - subheading
+    - paragraph
+    - list
+    - table
+    - figure
+    - caption
+    - footnote
+    - header
+    - footer
+    - page
+    - section
+
+  heading_hierarchy:
+    enabled: true
+
+  section_numbering:
+    enabled: true
+
+  detect:
+
+    numbered_sections: true
+    appendices: true
+    annexes: true
+    schedules: true
+    references: true
+    definitions: true
+    abbreviations: true
+
+  page_boundary_marker:
+    enabled: true
+    format: "[PAGE:{page_number}]"
+
+
+# ---------------------------------------------------------------------------
+# 8. Metadata Extraction
+# ---------------------------------------------------------------------------
+
+metadata:
+
+  extract: true
+
+  fields:
+
+    - filename
+    - file_extension
+    - file_size
+    - sha256
+    - title
+    - author
+    - creator
+    - subject
+    - creation_date
+    - modification_date
+    - page_count
+
+  engineering_metadata:
+
+    enabled: true
+
+    detect:
+
+      - document_number
+      - document_title
+      - document_type
+      - revision
+      - revision_date
+      - issue_status
+      - status
+      - originator
+      - checker
+      - approver
+      - project_name
+      - project_number
+      - contract_number
+      - package_number
+      - discipline
+      - confidentiality
+      - drawing_number
+      - drawing_revision
+
+
+# ---------------------------------------------------------------------------
+# 9. Revision and Document-Control Extraction
+# ---------------------------------------------------------------------------
+
+revision_control:
+
+  enabled: true
+
+  detect:
+
+    revision_numbers: true
+    revision_dates: true
+    issue_status: true
+    revision_descriptions: true
+    approval_status: true
+    supersession_statements: true
+
+  common_revision_patterns:
+
+    - Rev
+    - Revision
+    - Issue
+    - Version
+    - Amendment
+    - Addendum
+    - Bulletin
+    - Tender Bulletin
+    - Clarification
+    - Change Notice
+
+  revision_table:
+    detect: true
+    preserve: true
+
+  warning:
+    >
+      Revision number alone shall not determine governing status.
+      Governing status must be established through document relationships
+      and project-specific document-control evidence.
+
+
+# ---------------------------------------------------------------------------
+# 10. Engineering Text Normalisation
+# ---------------------------------------------------------------------------
+
+text:
+
+  preserve_original_text: true
+
+  normalisation:
+
+    enabled: true
+
+    operations:
+      - normalize_whitespace
+      - normalize_line_breaks
+      - normalize_hyphenation
+      - remove_repeated_headers_when_safe
+      - remove_repeated_footers_when_safe
+
+  do_not_normalize:
+
+    - engineering_units
+    - numerical_values
+    - dimensions
+    - drawing_numbers
+    - document_numbers
+    - revision_numbers
+    - clause_numbers
+    - standard_numbers
+    - specification_references
+    - chemical_formulas
+    - equations
+
+  retain:
+
+    original_text: true
+    normalized_text: true
+
+
+# ---------------------------------------------------------------------------
+# 11. Engineering Units and Numerical Content
+# ---------------------------------------------------------------------------
+
+numerical_content:
+
+  preserve_exact_values: true
+
+  detect:
+
+    - dimensions
+    - quantities
+    - percentages
+    - loads
+    - stresses
+    - forces
+    - moments
+    - pressures
+    - temperatures
+    - velocities
+    - flow_rates
+    - elevations
+    - coordinates
+    - design_life
+    - frequencies
+    - periods
+    - tolerances
+    - limits
+
+  units:
+    preserve_original: true
+    do_not_convert_during_ingestion: true
+
+  rule:
+    >
+      Unit conversion, engineering calculation and numerical verification
+      shall occur downstream of document ingestion.
+
+
+# ---------------------------------------------------------------------------
+# 12. Chunking
+# ---------------------------------------------------------------------------
+
+chunking

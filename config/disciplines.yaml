@@ -1,0 +1,339 @@
+version: 1
+
+disciplines:
+
+  project_management:
+    name: "Project Management"
+    aliases:
+      - "PM"
+      - "Project Controls"
+      - "Management"
+    parent: null
+
+  document_control:
+    name: "Document Control"
+    aliases:
+      - "DC"
+      - "Document Management"
+    parent: null
+
+  civil:
+    name: "Civil Engineering"
+    aliases:
+      - "Civil"
+      - "Civil Works"
+    parent: null
+
+  structural:
+    name: "Structural Engineering"
+    aliases:
+      - "Structural"
+      - "Structures"
+      - "Structural Works"
+    parent: civil
+
+  geotechnical:
+    name: "Geotechnical Engineering"
+    aliases:
+      - "Geotechnical"
+      - "Geotech"
+      - "Ground Engineering"
+      - "Soil"
+      - "Foundation"
+    parent: civil
+
+  marine:
+    name: "Marine Engineering"
+    aliases:
+      - "Marine"
+      - "Marine Works"
+      - "Port Engineering"
+      - "Harbour Engineering"
+      - "Harbor Engineering"
+    parent: civil
+
+  coastal:
+    name: "Coastal Engineering"
+    aliases:
+      - "Coastal"
+      - "Coastal Protection"
+      - "Shore Protection"
+      - "Flood Protection"
+    parent: civil
+
+  reclamation:
+    name: "Reclamation and Land Development"
+    aliases:
+      - "Reclamation"
+      - "Land Reclamation"
+      - "Land Development"
+      - "Fill"
+    parent: civil
+
+  dredging:
+    name: "Dredging"
+    aliases:
+      - "Dredging Works"
+      - "Capital Dredging"
+      - "Maintenance Dredging"
+      - "Marine Excavation"
+    parent: marine
+
+  hydraulic:
+    name: "Hydraulic Engineering"
+    aliases:
+      - "Hydraulics"
+      - "Drainage"
+      - "Stormwater"
+      - "Water Engineering"
+    parent: civil
+
+  transportation:
+    name: "Transportation Engineering"
+    aliases:
+      - "Transport"
+      - "Traffic"
+      - "Roads"
+      - "Highways"
+      - "LTA"
+    parent: civil
+
+  architectural:
+    name: "Architectural"
+    aliases:
+      - "Architecture"
+      - "Architectural Works"
+      - "Architectural Design"
+    parent: null
+
+  mechanical:
+    name: "Mechanical Engineering"
+    aliases:
+      - "Mechanical"
+      - "Mechanical Works"
+      - "ME"
+    parent: null
+
+  electrical:
+    name: "Electrical Engineering"
+    aliases:
+      - "Electrical"
+      - "Electrical Works"
+      - "EE"
+      - "Power"
+    parent: null
+
+  instrumentation_control:
+    name: "Instrumentation and Control"
+    aliases:
+      - "Instrumentation"
+      - "Control Systems"
+      - "I&C"
+      - "ICSS"
+      - "PLC"
+      - "SCADA"
+    parent: null
+
+  mep:
+    name: "Mechanical, Electrical and Plumbing"
+    aliases:
+      - "MEP"
+      - "M&E"
+      - "Mechanical and Electrical"
+    parent: null
+
+  fire_protection:
+    name: "Fire Protection and Fire Safety"
+    aliases:
+      - "Fire Protection"
+      - "Fire Safety"
+      - "FSSD"
+      - "Fire Engineering"
+    parent: null
+
+  offshore:
+    name: "Offshore Engineering"
+    aliases:
+      - "Offshore"
+      - "Offshore Structures"
+      - "Offshore Facilities"
+    parent: null
+
+  oil_gas:
+    name: "Oil and Gas"
+    aliases:
+      - "Oil & Gas"
+      - "O&G"
+      - "Petroleum"
+    parent: null
+
+  lng_energy:
+    name: "LNG and Energy"
+    aliases:
+      - "LNG"
+      - "Liquefied Natural Gas"
+      - "Energy"
+      - "Energy Infrastructure"
+    parent: null
+
+  renewable_energy:
+    name: "Renewable Energy"
+    aliases:
+      - "Renewables"
+      - "Solar"
+      - "Floating Solar"
+      - "Wind"
+      - "Tidal"
+      - "Marine Renewable Energy"
+    parent: energy
+
+  energy:
+    name: "Energy Engineering"
+    aliases:
+      - "Energy"
+      - "Power Generation"
+      - "Energy Infrastructure"
+    parent: null
+
+  data_centre:
+    name: "Data Centre Engineering"
+    aliases:
+      - "Data Centre"
+      - "Data Center"
+      - "DC"
+      - "Mission Critical"
+    parent: null
+
+  environmental:
+    name: "Environmental Engineering"
+    aliases:
+      - "Environmental"
+      - "Environment"
+      - "EIA"
+      - "Environmental Impact Assessment"
+    parent: null
+
+  sustainability:
+    name: "Sustainability"
+    aliases:
+      - "Sustainable Design"
+      - "Green Building"
+      - "Carbon"
+      - "Decarbonisation"
+      - "Decarbonization"
+    parent: null
+
+  regulatory:
+    name: "Regulatory and Authority Approvals"
+    aliases:
+      - "Regulatory"
+      - "Authority Approval"
+      - "Permitting"
+      - "Government Approvals"
+      - "Statutory Approval"
+    parent: null
+
+  planning:
+    name: "Planning and Development Control"
+    aliases:
+      - "Planning"
+      - "Development Control"
+      - "Land Use"
+      - "Planning Permission"
+    parent: regulatory
+
+  hse:
+    name: "Health, Safety and Environment"
+    aliases:
+      - "HSE"
+      - "HSSE"
+      - "Safety"
+      - "Health Safety Environment"
+    parent: null
+
+  quality:
+    name: "Quality Assurance and Quality Control"
+    aliases:
+      - "QA/QC"
+      - "Quality"
+      - "Quality Control"
+      - "Quality Assurance"
+    parent: null
+
+  construction:
+    name: "Construction Engineering and Methods"
+    aliases:
+      - "Construction"
+      - "Construction Methodology"
+      - "Temporary Works"
+      - "Constructability"
+    parent: null
+
+  marine_operations:
+    name: "Marine Operations"
+    aliases:
+      - "Marine Operations"
+      - "Vessel Operations"
+      - "Port Operations"
+      - "Marine Traffic"
+      - "Pilotage"
+      - "Navigation"
+    parent: marine
+
+  commercial:
+    name: "Commercial and Cost"
+    aliases:
+      - "Commercial"
+      - "Cost"
+      - "Estimating"
+      - "Pricing"
+      - "Quantity Surveying"
+      - "QS"
+    parent: null
+
+  contracts:
+    name: "Contracts and Contract Administration"
+    aliases:
+      - "Contracts"
+      - "Contract Administration"
+      - "Claims"
+      - "EOT"
+      - "Variation"
+      - "Contractual"
+    parent: commercial
+
+  procurement:
+    name: "Procurement and Supply Chain"
+    aliases:
+      - "Procurement"
+      - "Supply Chain"
+      - "Purchasing"
+      - "Vendor"
+    parent: commercial
+
+  programme:
+    name: "Planning and Programme"
+    aliases:
+      - "Programme"
+      - "Scheduling"
+      - "Project Controls"
+      - "Planning"
+      - "Schedule"
+    parent: project_management
+
+  marine_navigation:
+    name: "Marine Navigation and Port Safety"
+    aliases:
+      - "Navigation"
+      - "Navigational Safety"
+      - "Marine Safety"
+      - "Aids to Navigation"
+      - "AtoN"
+    parent: marine_operations
+
+  specialist:
+    name: "Specialist / Other"
+    aliases:
+      - "Specialist"
+      - "Other"
+    parent: null

@@ -1,0 +1,17 @@
+version: 1
+types:
+  - review_comment
+  - gap_matrix
+  - compliance_matrix
+  - revision_change
+  - technical_query
+  - risk_register
+  - decision_log
+  - executive_summary
+compliance_statuses:
+  - compliant
+  - partially_compliant
+  - non_compliant
+  - not_demonstrated
+  - not_applicable
+  - pending_information

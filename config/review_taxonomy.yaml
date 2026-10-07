@@ -1,0 +1,60 @@
+version: 1
+
+classification:
+  evidence_types:
+    - source_fact
+    - interpretation
+    - assumption
+    - engineering_judgement
+    - recommendation
+    - unknown
+
+  requirement_types:
+    - mandatory
+    - conditional
+    - optional
+    - informational
+
+  scope_status:
+    - in_scope
+    - out_of_scope
+    - by_others
+    - interface
+    - optional
+    - unclear
+
+  change_types:
+    - new
+    - modified
+    - deleted
+    - clarified
+    - superseded
+    - unchanged
+
+  risk_levels:
+    - low
+    - medium
+    - high
+    - critical
+
+  confidence:
+    - low
+    - medium
+    - high
+
+review_modes:
+  truth: "Separate source-supported fact from interpretation, assumption, judgement and unknown."
+
+  steelman: "Test the strongest reasonable interpretation before identifying a gap."
+
+  gap: "Search for omissions, contradictions, unclear responsibilities, missing criteria and missing evidence."
+
+  critic: "Challenge assumptions, logic, source quality and conclusions."
+
+  scope: "Classify obligations, deliverables, interfaces and responsibility."
+
+  compliance: "Map each requirement to explicit evidence and status."
+
+  change: "Compare revisions and identify material changes and impacts."
+
+  risk: "Assess technical, contractual, programme, commercial, regulatory and constructability risks."

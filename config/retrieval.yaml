@@ -1,0 +1,18 @@
+version: 2
+chunking:
+  target_chars: 1800
+  overlap_chars: 250
+persistence:
+  backend: sqlite
+  path_env: ENGINEERING_EVIDENCE_DB
+  default_path: .eda/evidence_store.sqlite3
+  wal_mode: true
+retrieval:
+  method: hybrid
+  default_top_k: 12
+  min_score: 0.0
+hybrid_reranking:
+  lexical_weight: 0.55
+  semantic_weight: 0.35
+  metadata_weight: 0.10
+  deterministic_tiebreaker: evidence_id

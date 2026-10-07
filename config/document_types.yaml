@@ -1,0 +1,364 @@
+version: 1
+
+document_types:
+
+  rfp:
+    name: "Request for Proposal"
+    category: "procurement"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "RFP"
+      - "Request for Proposal"
+      - "Invitation to Tender"
+
+  rfq:
+    name: "Request for Quotation"
+    category: "procurement"
+    typical_authority: "commercial"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "RFQ"
+      - "Request for Quotation"
+      - "Quotation Request"
+
+  tender_bulletin:
+    name: "Tender Bulletin"
+    category: "procurement"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: critical
+    supersedes_related_documents: true
+    examples:
+      - "Tender Bulletin"
+      - "Tender Addendum"
+      - "Addendum"
+      - "Tender Clarification"
+
+  clarification:
+    name: "Tender Clarification"
+    category: "procurement"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Clarification"
+      - "Tender Query Response"
+      - "Q&A"
+
+  employer_requirements:
+    name: "Employer's Requirements"
+    category: "contract"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Employer's Requirements"
+      - "Employer Requirement"
+      - "ER"
+
+  technical_specification:
+    name: "Technical Specification"
+    category: "technical"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Technical Specification"
+      - "Technical Requirements"
+      - "Project Specification"
+
+  scope_of_work:
+    name: "Scope of Work"
+    category: "contract"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Scope of Work"
+      - "Scope of Services"
+      - "Work Scope"
+
+  contract:
+    name: "Contract Document"
+    category: "contract"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Contract"
+      - "Conditions of Contract"
+      - "Particular Conditions"
+      - "General Conditions"
+
+  boq:
+    name: "Bill of Quantities"
+    category: "commercial"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "BOQ"
+      - "Bill of Quantities"
+      - "Schedule of Quantities"
+
+  schedule:
+    name: "Schedule"
+    category: "contract"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Schedule"
+      - "Pricing Schedule"
+      - "Equipment Schedule"
+      - "Material Schedule"
+
+  drawing:
+    name: "Engineering Drawing"
+    category: "technical"
+    typical_authority: "design"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Drawing"
+      - "GA Drawing"
+      - "General Arrangement"
+      - "Detail Drawing"
+      - "Shop Drawing"
+      - "Construction Drawing"
+
+  drawing_register:
+    name: "Drawing Register"
+    category: "document_control"
+    typical_authority: "document_control"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Drawing Register"
+      - "Drawing List"
+      - "Master Drawing Register"
+
+  design_report:
+    name: "Design Report"
+    category: "technical"
+    typical_authority: "design"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Design Report"
+      - "Design Basis Report"
+      - "Engineering Report"
+      - "Calculation Report"
+
+  calculation:
+    name: "Engineering Calculation"
+    category: "technical"
+    typical_authority: "design"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Calculation"
+      - "Design Calculation"
+      - "Structural Calculation"
+      - "Engineering Calculation"
+
+  design_basis:
+    name: "Design Basis"
+    category: "technical"
+    typical_authority: "design"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Design Basis"
+      - "Design Criteria"
+      - "Basis of Design"
+      - "Design Philosophy"
+
+  geotechnical_report:
+    name: "Geotechnical Report"
+    category: "technical"
+    typical_authority: "technical_reference"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Geotechnical Report"
+      - "Ground Investigation Report"
+      - "Soil Investigation Report"
+      - "GI Report"
+
+  survey:
+    name: "Survey / Site Investigation"
+    category: "technical_reference"
+    typical_authority: "technical_reference"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Topographic Survey"
+      - "Hydrographic Survey"
+      - "Bathymetric Survey"
+      - "Site Survey"
+
+  metocean:
+    name: "Metocean Study"
+    category: "technical_reference"
+    typical_authority: "technical_reference"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Metocean Study"
+      - "Metocean Report"
+      - "Wave Study"
+      - "Current Study"
+
+  method_statement:
+    name: "Method Statement"
+    category: "construction"
+    typical_authority: "construction"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Method Statement"
+      - "Construction Methodology"
+      - "Execution Methodology"
+
+  inspection_test_plan:
+    name: "Inspection and Test Plan"
+    category: "quality"
+    typical_authority: "quality"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "ITP"
+      - "Inspection and Test Plan"
+      - "Inspection Test Plan"
+
+  regulatory_submission:
+    name: "Regulatory Submission"
+    category: "regulatory"
+    typical_authority: "regulatory"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Regulatory Submission"
+      - "Authority Submission"
+      - "Permit Application"
+      - "Approval Submission"
+
+  approval:
+    name: "Authority Approval"
+    category: "regulatory"
+    typical_authority: "regulatory"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Approval"
+      - "Permit"
+      - "Consent"
+      - "Clearance"
+      - "Licence"
+
+  standard:
+    name: "Code / Standard"
+    category: "reference"
+    typical_authority: "technical_reference"
+    revision_sensitive: true
+    priority: critical
+    examples:
+      - "Code"
+      - "Standard"
+      - "Design Standard"
+      - "Technical Standard"
+
+  specification_datasheet:
+    name: "Equipment / Material Datasheet"
+    category: "technical"
+    typical_authority: "technical"
+    revision_sensitive: true
+    priority: medium
+    examples:
+      - "Datasheet"
+      - "Equipment Datasheet"
+      - "Material Datasheet"
+      - "Technical Datasheet"
+
+  correspondence:
+    name: "Project Correspondence"
+    category: "communication"
+    typical_authority: "contextual"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Letter"
+      - "Email"
+      - "Technical Query"
+      - "TQ"
+      - "RFI"
+      - "Meeting Minutes"
+
+  transmittal:
+    name: "Document Transmittal"
+    category: "document_control"
+    typical_authority: "document_control"
+    revision_sensitive: true
+    priority: medium
+    examples:
+      - "Transmittal"
+      - "Document Transmittal"
+      - "Document Submission"
+
+  programme:
+    name: "Project Programme"
+    category: "programme"
+    typical_authority: "contractual"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Programme"
+      - "Construction Programme"
+      - "Baseline Programme"
+      - "Schedule"
+
+  risk_register:
+    name: "Risk Register"
+    category: "risk"
+    typical_authority: "management"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "Risk Register"
+      - "Project Risk Register"
+      - "Risk Assessment"
+
+  hse_document:
+    name: "Health, Safety and Environmental Document"
+    category: "hse"
+    typical_authority: "management"
+    revision_sensitive: true
+    priority: high
+    examples:
+      - "HSE Plan"
+      - "Environmental Management Plan"
+      - "Safety Plan"
+      - "Environmental Plan"
+
+  meeting_minutes:
+    name: "Meeting Minutes"
+    category: "communication"
+    typical_authority: "contextual"
+    revision_sensitive: true
+    priority: medium
+    examples:
+      - "Minutes of Meeting"
+      - "MOM"
+      - "Meeting Minutes"
+
+  other:
+    name: "Other / Unclassified Document"
+    category: "other"
+    typical_authority: "unknown"
+    revision_sensitive: true
+    priority: low
+    examples: []
