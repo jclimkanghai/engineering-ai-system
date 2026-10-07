@@ -1,0 +1,19 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Engineering Responsibility Assignment
+type: object
+required: [assignment_id, role, responsibility_type, source_evidence_ids, source_class, human_review_required]
+properties:
+  assignment_id: {type: string}
+  party_id: {type: [string, 'null']}
+  role:
+    type: string
+    enum: [responsible_party, action_owner, reviewer, approver]
+  responsibility_type: {type: string}
+  source_evidence_ids: {type: array, items: {type: string}}
+  source_requirement_ids: {type: array, items: {type: string}}
+  source_class:
+    type: string
+    enum: [explicit, inferred, assumed, unknown]
+  confidence: {type: string}
+  human_review_required: {type: boolean}
+  metadata: {type: object}

@@ -1,0 +1,69 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Engineering Finding Registry
+type: object
+required: [registry_version, project_id, entries, applied_review_digests]
+properties:
+  registry_version: {type: integer, const: 1}
+  project_id: {type: string, minLength: 1}
+  applied_review_digests:
+    type: array
+    items: {type: string, pattern: "^[a-f0-9]{64}$"}
+  entries:
+    type: array
+    items:
+      type: object
+      required:
+        - finding_id
+        - signature
+        - project_id
+        - lifecycle_status
+        - closure_status
+        - human_verified
+        - observations
+      properties:
+        finding_id: {type: string, minLength: 1}
+        signature: {type: string, pattern: "^[a-f0-9]{64}$"}
+        title: {type: [string, 'null']}
+        project_id: {type: string, minLength: 1}
+        lifecycle_status:
+          type: string
+          enum: [OPEN, IN_PROGRESS, CLOSURE_PROPOSED, CLOSED, REJECTED, SUPERSEDED]
+        closure_status:
+          type: string
+          enum: [NOT_PROPOSED, PROPOSED, VERIFIED]
+        human_verified: {type: boolean}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        observations:
+          type: array
+          items:
+            type: object
+            required:
+              - review_digest
+              - source_finding_id
+              - reviewer_id
+              - document_ids
+              - source_evidence_ids
+              - evidence_locations
+              - finding
+            properties:
+              review_digest: {type: string, pattern: "^[a-f0-9]{64}$"}
+              source_finding_id: {type: string, minLength: 1}
+              reviewer_id: {type: string, minLength: 1}
+              recorded_at: {type: string, format: date-time}
+              document_ids: {type: array, items: {type: string}}
+              document_revisions:
+                type: object
+                additionalProperties: {type: [string, 'null']}
+              source_evidence_ids: {type: array, items: {type: string}}
+              evidence_locations:
+                type: array
+                items:
+                  type: object
+                  required: [evidence_id]
+                  properties:
+                    evidence_id: {type: string}
+                    document_id: {type: [string, 'null']}
+                    revision: {type: [string, 'null']}
+                    locator: {type: [string, 'null']}
+              finding: {type: object}

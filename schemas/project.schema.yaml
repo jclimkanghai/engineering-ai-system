@@ -1,0 +1,1158 @@
+version: 1
+
+schema:
+  name: project
+  description: >
+    Master project-level schema for Engineering Document AI.
+    Provides the contextual structure linking documents, requirements,
+    findings, risks, contracts, packages, disciplines, parties,
+    authorities and standards.
+
+  design_principles:
+    - project_context_first
+    - traceability
+    - revision_awareness
+    - explicit_relationships
+    - source_based_classification
+    - human_review_for_material_decisions
+
+project:
+  identity:
+
+    project_id:
+      type: string
+      required: true
+      description: >
+        Unique internal identifier for the project.
+
+    project_number:
+      type: string
+      required: false
+      description: >
+        Client, contract or internal project number.
+
+    project_name:
+      type: string
+      required: true
+
+    project_short_name:
+      type: string
+      required: false
+
+    project_type:
+      type: string
+      required: false
+      examples:
+        - EPC
+        - Design_and_Build
+        - FEED
+        - Detailed_Design
+        - Construction
+        - Feasibility_Study
+        - Tender
+
+    project_status:
+      type: enum
+      values:
+        - planning
+        - tender
+        - awarded
+        - design
+        - construction
+        - commissioning
+        - operation
+        - completed
+        - suspended
+        - cancelled
+        - unknown
+
+    project_description:
+      type: string
+      required: false
+
+  location:
+
+    country:
+      type: string
+      required: false
+
+    region:
+      type: string
+      required: false
+
+    city:
+      type: string
+      required: false
+
+    site:
+      type: string
+      required: false
+
+    coordinates:
+      type: object
+      required: false
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
+
+  commercial_context:
+
+    procurement_model:
+      type: string
+      required: false
+      examples:
+        - EPC
+        - EPCM
+        - Design_and_Build
+        - Traditional
+        - D_and_B
+        - Consultancy
+        - Feasibility
+
+    contract_type:
+      type: string
+      required: false
+      examples:
+        - Lump_Sum
+        - Re_measurement
+        - Unit_Rate
+        - Cost_Plus
+        - Framework
+        - Unknown
+
+    currency:
+      type: string
+      required: false
+
+    tender_reference:
+      type: string
+      required: false
+
+    contract_reference:
+      type: string
+      required: false
+
+  dates:
+
+    tender_issue_date:
+      type: date
+      required: false
+
+    tender_closing_date:
+      type: date
+      required: false
+
+    contract_award_date:
+      type: date
+      required: false
+
+    commencement_date:
+      type: date
+      required: false
+
+    planned_completion_date:
+      type: date
+      required: false
+
+  parties:
+
+    client:
+      type: reference_list
+      target: party
+
+    employer:
+      type: reference_list
+      target: party
+
+    main_contractor:
+      type: reference_list
+      target: party
+
+    consultant:
+      type: reference_list
+      target: party
+
+    specialist_consultants:
+      type: reference_list
+      target: party
+
+    subcontractors:
+      type: reference_list
+      target: party
+
+    suppliers:
+      type: reference_list
+      target: party
+
+    authorities:
+      type: reference_list
+      target: authority
+
+    other_parties:
+      type: reference_list
+      target: party
+
+  contracts:
+
+    primary_contract:
+      type: reference
+      target: contract
+      required: false
+
+    contracts:
+      type: reference_list
+      target: contract
+
+  packages:
+
+    packages:
+      type: reference_list
+      target: package
+
+  disciplines:
+
+    primary_disciplines:
+      type: enum_list
+      values:
+        - project_management
+        - document_control
+        - civil
+        - structural
+        - geotechnical
+        - marine
+        - coastal
+        - reclamation
+        - dredging
+        - hydraulic
+        - transportation
+        - architectural
+        - mechanical
+        - electrical
+        - instrumentation_control
+        - mep
+        - fire_protection
+        - offshore
+        - oil_gas
+        - lng_energy
+        - renewable_energy
+        - energy
+        - data_centre
+        - environmental
+        - sustainability
+        - regulatory
+        - planning
+        - hse
+        - quality
+        - construction
+        - marine_operations
+        - commercial
+        - contracts
+        - procurement
+        - programme
+        - marine_navigation
+        - specialist
+
+    active_disciplines:
+      type: enum_list
+
+  authorities:
+
+    governing_authorities:
+      type: reference_list
+      target: authority
+
+    regulatory_framework:
+      type: reference_list
+      target: standard_or_regulation
+
+  standards:
+
+    governing_standards:
+      type: reference_list
+      target: standard
+
+    recognised_guidance:
+      type: reference_list
+      target: standard
+
+  document_control:
+
+    document_register:
+      type: reference_list
+      target: document
+
+    governing_documents:
+      type: reference_list
+      target: document
+
+    superseded_documents:
+      type: reference_list
+      target: document
+
+    tender_bulletins:
+      type: reference_list
+      target: document
+
+    clarifications:
+      type: reference_list
+      target: document
+
+    addenda:
+      type: reference_list
+      target: document
+
+  requirements:
+
+    requirements:
+      type: reference_list
+      target: requirement
+
+    mandatory_requirements:
+      type: reference_list
+      target: requirement
+
+    unresolved_requirements:
+      type: reference_list
+      target: requirement
+
+    requirements_requiring_clarification:
+      type: reference_list
+      target: requirement
+
+  findings:
+
+    findings:
+      type: reference_list
+      target: finding
+
+    open_findings:
+      type: reference_list
+      target: finding
+
+    critical_findings:
+      type: reference_list
+      target: finding
+
+    human_review_findings:
+      type: reference_list
+      target: finding
+
+  risks:
+
+    risks:
+      type: reference_list
+      target: risk
+
+    critical_risks:
+      type: reference_list
+      target: risk
+
+    high_risks:
+      type: reference_list
+      target: risk
+
+    open_risks:
+      type: reference_list
+      target: risk
+
+  review:
+
+    review_scope:
+      type: string
+      required: false
+
+    review_modes:
+      type: enum_list
+      values:
+        - truth
+        - steelman
+        - gap
+        - critic
+        - scope
+        - compliance
+        - change
+        - risk
+        - contractual
+
+    review_status:
+      type: enum
+      values:
+        - not_started
+        - ingesting
+        - document_control
+        - extracting
+        - analysing
+        - quality_check
+        - human_review
+        - completed
+        - blocked
+
+    review_priority:
+      type: enum
+      values:
+        - low
+        - medium
+        - high
+        - critical
+
+    human_review_required:
+      type: boolean
+      default: false
+
+  statistics:
+
+    document_count:
+      type: integer
+      minimum: 0
+
+    requirement_count:
+      type: integer
+      minimum: 0
+
+    finding_count:
+      type: integer
+      minimum: 0
+
+    risk_count:
+      type: integer
+      minimum: 0
+
+    unresolved_count:
+      type: integer
+      minimum: 0
+
+    critical_count:
+      type: integer
+      minimum: 0
+
+  metadata:
+
+    created_at:
+      type: datetime
+      required: true
+
+    updated_at:
+      type: datetime
+      required: true
+
+    created_by:
+      type: string
+      required: false
+
+    updated_by:
+      type: string
+      required: false
+
+    source_system:
+      type: string
+      required: false
+
+    schema_version:
+      type: string
+      required: true
+      default: "1.0"
+
+
+party:
+  identity:
+
+    party_id:
+      type: string
+      required: true
+
+    name:
+      type: string
+      required: true
+
+    short_name:
+      type: string
+      required: false
+
+    party_type:
+      type: enum
+      values:
+        - client
+        - employer
+        - contractor
+        - consultant
+        - engineer
+        - architect
+        - specialist_consultant
+        - subcontractor
+        - supplier
+        - authority
+        - operator
+        - owner
+        - verifier
+        - independent_checker
+        - other
+
+    role:
+      type: string
+      required: false
+
+    contact_reference:
+      type: string
+      required: false
+
+  project_relationship:
+
+    project_id:
+      type: reference
+      target: project
+      required: true
+
+    contractual_role:
+      type: string
+      required: false
+
+    responsibility_area:
+      type: string
+      required: false
+
+    responsibility_basis:
+      type: reference_list
+      target: citation
+
+
+contract:
+  identity:
+
+    contract_id:
+      type: string
+      required: true
+
+    contract_number:
+      type: string
+      required: false
+
+    title:
+      type: string
+      required: true
+
+    contract_type:
+      type: string
+      required: false
+
+    procurement_model:
+      type: string
+      required: false
+
+    governing_law:
+      type: string
+      required: false
+
+  parties:
+
+    employer:
+      type: reference_list
+      target: party
+
+    contractor:
+      type: reference_list
+      target: party
+
+    consultant:
+      type: reference_list
+      target: party
+
+  hierarchy:
+
+    precedence_order:
+      type: reference_list
+      target: document
+
+    interpretation_basis:
+      type: string
+      required: false
+
+    hierarchy_source:
+      type: reference_list
+      target: citation
+
+  documents:
+
+    contract_documents:
+      type: reference_list
+      target: document
+
+    amendments:
+      type: reference_list
+      target: document
+
+    bulletins:
+      type: reference_list
+      target: document
+
+    clarifications:
+      type: reference_list
+      target: document
+
+
+package:
+  identity:
+
+    package_id:
+      type: string
+      required: true
+
+    package_number:
+      type: string
+      required: false
+
+    package_name:
+      type: string
+      required: true
+
+    package_type:
+      type: string
+      required: false
+
+    description:
+      type: string
+      required: false
+
+  project:
+
+    project_id:
+      type: reference
+      target: project
+      required: true
+
+    contract_id:
+      type: reference
+      target: contract
+      required: false
+
+  scope:
+
+    scope_description:
+      type: string
+      required: false
+
+    disciplines:
+      type: enum_list
+
+    responsible_parties:
+      type: reference_list
+      target: party
+
+    interface_packages:
+      type: reference_list
+      target: package
+
+  documents:
+
+    documents:
+      type: reference_list
+      target: document
+
+  requirements:
+
+    requirements:
+      type: reference_list
+      target: requirement
+
+  findings:
+
+    findings:
+      type: reference_list
+      target: finding
+
+  risks:
+
+    risks:
+      type: reference_list
+      target: risk
+
+
+authority:
+  identity:
+
+    authority_id:
+      type: string
+      required: true
+
+    name:
+      type: string
+      required: true
+
+    short_name:
+      type: string
+      required: false
+
+    authority_type:
+      type: enum
+      values:
+        - statutory
+        - regulatory
+        - planning
+        - environmental
+        - maritime
+        - building
+        - fire
+        - utilities
+        - transport
+        - occupational_safety
+        - environmental_protection
+        - land
+        - other
+
+    jurisdiction:
+      type: string
+      required: false
+
+  project_relationship:
+
+    project_id:
+      type: reference
+      target: project
+
+    approval_required:
+      type: boolean
+      required: false
+
+    licence_required:
+      type: boolean
+      required: false
+
+    permit_required:
+      type: boolean
+      required: false
+
+  requirements:
+
+    regulatory_requirements:
+      type: reference_list
+      target: requirement
+
+  approvals:
+
+    approvals:
+      type: reference_list
+      target: approval
+
+
+approval:
+  identity:
+
+    approval_id:
+      type: string
+      required: true
+
+    approval_name:
+      type: string
+      required: true
+
+    approval_type:
+      type: string
+      required: false
+
+    authority_id:
+      type: reference
+      target: authority
+      required: false
+
+  status:
+
+    status:
+      type: enum
+      values:
+        - not_required
+        - planned
+        - pending
+        - submitted
+        - under_review
+        - approved
+        - approved_with_conditions
+        - rejected
+        - expired
+        - superseded
+        - withdrawn
+        - unknown
+
+    submission_date:
+      type: date
+      required: false
+
+    approval_date:
+      type: date
+      required: false
+
+    expiry_date:
+      type: date
+      required: false
+
+  documents:
+
+    submission_documents:
+      type: reference_list
+      target: document
+
+    approval_documents:
+      type: reference_list
+      target: document
+
+    conditions:
+      type: reference_list
+      target: requirement
+
+
+standard:
+  identity:
+
+    standard_id:
+      type: string
+      required: true
+
+    title:
+      type: string
+      required: true
+
+    short_name:
+      type: string
+      required: false
+
+    publisher:
+      type: string
+      required: false
+
+    standard_family:
+      type: enum
+      values:
+        - ISO
+        - IEC
+        - API
+        - OCIMF
+        - PIANC
+        - Eurocode
+        - BS
+        - ASTM
+        - EN
+        - Singapore
+        - BCA
+        - MPA
+        - PUB
+        - SCDF
+        - NEA
+        - MOM
+        - LTA
+        - NParks
+        - EMA
+        - SPPG
+        - other
+
+    edition:
+      type: string
+      required: false
+
+    publication_date:
+      type: date
+      required: false
+
+  applicability:
+
+    project_id:
+      type: reference
+      target: project
+
+    discipline:
+      type: enum_list
+
+    mandatory:
+      type: boolean
+      required: false
+
+    applicability_basis:
+      type: string
+      required: false
+
+    source:
+      type: reference_list
+      target: citation
+
+
+relationship:
+  identity:
+
+    relationship_id:
+      type: string
+      required: true
+
+    source_id:
+      type: string
+      required: true
+
+    target_id:
+      type: string
+      required: true
+
+    relationship_type:
+      type: enum
+      values:
+        - contains
+        - belongs_to
+        - references
+        - referenced_by
+        - supersedes
+        - superseded_by
+        - modifies
+        - modified_by
+        - clarifies
+        - clarified_by
+        - contradicts
+        - supports
+        - depends_on
+        - interfaces_with
+        - applies_to
+        - governed_by
+        - issued_by
+        - approved_by
+        - responsible_for
+        - related_to
+        - derived_from
+
+    evidence:
+      type: reference_list
+      target: citation
+
+    confidence:
+      type: enum
+      values:
+        - low
+        - medium
+        - high
+
+    verified:
+      type: boolean
+      default: false
+
+
+project_controls:
+
+  required_fields:
+    - project_id
+    - project_name
+    - project_status
+
+  recommended_fields:
+    - project_number
+    - project_type
+    - project_description
+    - location
+    - commercial_context
+    - parties
+    - contracts
+    - packages
+    - disciplines
+    - authorities
+    - standards
+
+  validation_rules:
+
+    - id: PROJECT-001
+      rule: >
+        Every project shall have a unique project_id.
+
+    - id: PROJECT-002
+      rule: >
+        Every project shall have a project_name.
+
+    - id: PROJECT-003
+      rule: >
+        Every project shall have a project_status.
+
+    - id: PROJECT-004
+      rule: >
+        Every referenced document shall belong to or be explicitly related
+        to the project.
+
+    - id: PROJECT-005
+      rule: >
+        Every requirement shall be traceable to at least one source document,
+        standard, regulation or explicitly identified project source.
+
+    - id: PROJECT-006
+      rule: >
+        Every finding shall be traceable to supporting evidence.
+
+    - id: PROJECT-007
+      rule: >
+        Every material risk shall identify its source, cause and consequence.
+
+    - id: PROJECT-008
+      rule: >
+        Contractual hierarchy shall not be inferred as universal.
+        It shall be established from project-specific evidence.
+
+    - id: PROJECT-009
+      rule: >
+        Authority requirements shall be distinguished from project
+        recommendations and engineering judgement.
+
+    - id: PROJECT-010
+      rule: >
+        Supersession relationships shall be evidence-based.
+
+    - id: PROJECT-011
+      rule: >
+        A document shall not be treated as governing solely because it has
+        the latest revision number or date.
+
+    - id: PROJECT-012
+      rule: >
+        Material unresolved issues shall be linked to findings, requirements
+        or risks as appropriate.
+
+    - id: PROJECT-013
+      rule: >
+        The system shall preserve the relationship between a project,
+        contract, package, document, requirement, finding and risk.
+
+    - id: PROJECT-014
+      rule: >
+        Project context shall not override explicit source evidence.
+
+    - id: PROJECT-015
+      rule: >
+        Missing project information shall be represented explicitly rather
+        than silently inferred.
+
+
+traceability_model:
+
+  primary_chain:
+
+    - project
+    - contract
+    - package
+    - document
+    - requirement
+    - finding
+    - risk
+    - action
+
+  evidence_chain:
+
+    source_document:
+      ↓:
+        - source_location
+        - extracted_content
+        - requirement
+        - interpretation
+        - finding
+        - risk
+
+  revision_chain:
+
+    document_revision:
+      ↓:
+        - previous_revision
+        - change
+        - current_requirement
+        - current_scope
+        - current_risk
+
+  responsibility_chain:
+
+    requirement:
+      ↓:
+        - responsible_party
+        - supporting_party
+        - interface_party
+
+  approval_chain:
+
+    requirement:
+      ↓:
+        - authority
+        - submission
+        - approval
+        - approval_condition
+
+
+ai_context:
+
+  retrieval_context:
+
+    include:
+      - project_identity
+      - project_type
+      - project_status
+      - applicable_contract
+      - applicable_package
+      - applicable_discipline
+      - governing_documents
+      - current_revisions
+      - applicable_requirements
+      - related_findings
+      - related_risks
+      - applicable_authorities
+      - applicable_standards
+
+  exclusion_rules:
+
+    - >
+      Do not retrieve superseded documents as current governing evidence
+      unless the analysis explicitly concerns historical revisions.
+
+    - >
+      Do not treat unrelated project documents as evidence merely because
+      they contain similar terminology.
+
+    - >
+      Do not mix requirements from different contracts or packages without
+      establishing applicability.
+
+    - >
+      Do not merge projects solely because they share the same client,
+      contractor, site or discipline.
+
+  context_priority:
+
+    1: current_governing_requirement
+    2: current_contractual_document
+    3: current_project_technical_document
+    4: applicable_regulation
+    5: applicable_standard
+    6: supporting_project_information
+    7: engineering_interpretation
+    8: engineering_judgement
+
+
+security:
+
+  confidentiality:
+
+    allowed_classifications:
+      - public
+      - internal
+      - confidential
+      - commercially_sensitive
+      - restricted
+
+    default:
+      confidential
+
+  rules:
+
+    - >
+      Project confidentiality classification shall be inherited by related
+      records unless a more restrictive classification is explicitly assigned.
+
+    - >
+      Confidential project documents shall not be published to public
+      repositories.
+
+    - >
+      Commercially sensitive tender information shall be protected from
+      unintended disclosure.
+
+    - >
+      Access control shall be implemented outside this schema where required.
+
+    - >
+      Audit logs should preserve access and modification history for
+      controlled project information.

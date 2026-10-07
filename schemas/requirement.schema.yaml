@@ -1,0 +1,434 @@
+version: 1
+
+requirement_schema:
+
+  identity:
+
+    requirement_id:
+      type: string
+      required: true
+      description: "Unique stable identifier for the requirement."
+
+    title:
+      type: string
+      required: true
+      description: "Short human-readable title describing the requirement."
+
+    requirement_text:
+      type: string
+      required: true
+      description: "Normalized statement of the requirement."
+
+    source_text:
+      type: string
+      required: false
+      description: "Relevant original wording extracted from the source document."
+
+  classification:
+
+    requirement_type:
+      type: string
+      required: true
+      allowed:
+        - mandatory
+        - conditional
+        - optional
+        - informational
+
+    requirement_category:
+      type: string
+      required: false
+      allowed:
+        - technical
+        - contractual
+        - commercial
+        - programme
+        - regulatory
+        - hse
+        - quality
+        - environmental
+        - construction
+        - procurement
+        - documentation
+        - interface
+        - testing
+        - commissioning
+        - operation
+        - maintenance
+        - other
+
+    discipline:
+      type: array
+      items: string
+      required: false
+      description: "One or more disciplines affected by the requirement."
+
+    scope_status:
+      type: string
+      required: false
+      allowed:
+        - in_scope
+        - out_of_scope
+        - by_others
+        - interface
+        - optional
+        - unclear
+
+  obligation:
+
+    obligation_type:
+      type: string
+      required: false
+      allowed:
+        - design
+        - supply
+        - procure
+        - manufacture
+        - fabricate
+        - transport
+        - install
+        - construct
+        - test
+        - inspect
+        - commission
+        - operate
+        - maintain
+        - submit
+        - obtain_approval
+        - coordinate
+        - provide
+        - verify
+        - demonstrate
+        - report
+        - other
+
+    action:
+      type: string
+      required: false
+      description: "Action that must be performed to satisfy the requirement."
+
+    deliverable:
+      type: string
+      required: false
+      description: "Physical or documentary deliverable associated with the requirement."
+
+    acceptance_criteria:
+      type: array
+      items: string
+      required: false
+      description: "Explicit criteria that must be satisfied for acceptance."
+
+  responsibility:
+
+    responsible_party:
+      type: string
+      required: false
+      description: "Party explicitly assigned responsibility by the source."
+
+    responsible_role:
+      type: string
+      required: false
+      description: "Role responsible for fulfilling the requirement."
+
+    supporting_parties:
+      type: array
+      items: string
+      required: false
+
+    responsibility_basis:
+      type: string
+      required: false
+      allowed:
+        - explicit
+        - implied
+        - inferred
+        - unclear
+        - unknown
+
+  technical_criteria:
+
+    parameters:
+      type: array
+      required: false
+      items:
+        name:
+          type: string
+        value:
+          type: string
+        unit:
+          type: string
+          required: false
+        condition:
+          type: string
+          required: false
+        tolerance:
+          type: string
+          required: false
+
+    codes_and_standards:
+      type: array
+      items: string
+      required: false
+
+    design_life:
+      type: string
+      required: false
+
+    performance_criteria:
+      type: array
+      items: string
+      required: false
+
+  applicability:
+
+    applicable_to:
+      type: array
+      items: string
+      required: false
+      description: "Equipment, structure, work package, system, location or activity to which the requirement applies."
+
+    applicability_conditions:
+      type: array
+      items: string
+      required: false
+
+    exclusions:
+      type: array
+      items: string
+      required: false
+
+  provenance:
+
+    source_document_id:
+      type: string
+      required: true
+
+    source_document_number:
+      type: string
+      required: false
+
+    source_revision:
+      type: string
+      required: false
+
+    source_date:
+      type: date
+      required: false
+
+    section:
+      type: string
+      required: false
+
+    subsection:
+      type: string
+      required: false
+
+    page:
+      type: integer
+      required: false
+
+    paragraph:
+      type: string
+      required: false
+
+    table:
+      type: string
+      required: false
+
+    figure:
+      type: string
+      required: false
+
+    drawing_reference:
+      type: string
+      required: false
+
+    source_location:
+      type: string
+      required: false
+      description: "Human-readable source locator."
+
+    extraction_method:
+      type: string
+      required: false
+      allowed:
+        - text
+        - table
+        - drawing
+        - OCR
+        - layout
+        - manual
+        - other
+
+  revision_control:
+
+    status:
+      type: string
+      required: false
+      allowed:
+        - current
+        - superseded
+        - modified
+        - deleted
+        - clarified
+        - unchanged
+        - disputed
+        - unknown
+
+    supersedes_requirement_id:
+      type: array
+      items: string
+      required: false
+
+    superseded_by_requirement_id:
+      type: array
+      items: string
+      required: false
+
+    change_reason:
+      type: string
+      required: false
+
+  evidence:
+
+    evidence_status:
+      type: string
+      required: false
+      allowed:
+        - confirmed
+        - partially_confirmed
+        - not_confirmed
+        - conflicting
+        - unavailable
+        - not_applicable
+        - unknown
+
+    evidence_references:
+      type: array
+      items: string
+      required: false
+      description: "References to documents, drawings, calculations, records or other evidence supporting compliance."
+
+    evidence_quality:
+      type: string
+      required: false
+      allowed:
+        - high
+        - medium
+        - low
+        - insufficient
+        - unknown
+
+  interpretation:
+
+    evidence_type:
+      type: string
+      required: false
+      allowed:
+        - source_fact
+        - interpretation
+        - assumption
+        - engineering_judgement
+        - recommendation
+        - unknown
+
+    interpretation:
+      type: string
+      required: false
+
+    assumptions:
+      type: array
+      items: string
+      required: false
+
+    uncertainties:
+      type: array
+      items: string
+      required: false
+
+    conflicts:
+      type: array
+      items: string
+      required: false
+
+  compliance:
+
+    compliance_status:
+      type: string
+      required: false
+      allowed:
+        - compliant
+        - partially_compliant
+        - non_compliant
+        - pending
+        - not_assessed
+        - not_applicable
+        - unable_to_verify
+        - conflicting_information
+
+    compliance_basis:
+      type: string
+      required: false
+      description: "Explanation of how compliance status was determined."
+
+    outstanding_actions:
+      type: array
+      items: string
+      required: false
+
+  risk:
+
+    risk_level:
+      type: string
+      required: false
+      allowed:
+        - low
+        - medium
+        - high
+        - critical
+
+    risk_dimensions:
+      type: array
+      items: string
+      required: false
+
+    risk_description:
+      type: string
+      required: false
+
+    consequence:
+      type: string
+      required: false
+
+    mitigation:
+      type: array
+      items: string
+      required: false
+
+  review:
+
+    confidence:
+      type: string
+      required: false
+      allowed:
+        - low
+        - medium
+        - high
+
+    review_status:
+      type: string
+      required: false
+      allowed:
+        - extracted
+        - reviewed
+        - verified
+        - requires_human_review
+        - rejected
+
+    reviewer:
+      type: string
+      required: false
+
+    review_notes:
+      type: string
+      required: false

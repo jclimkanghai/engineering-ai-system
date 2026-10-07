@@ -1,0 +1,229 @@
+[build-system]
+requires = [
+    "setuptools>=69",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "engineering-ai-system"
+version = "0.1.6"
+
+description = "Evidence-first AI framework for engineering document intelligence, tender review and technical analysis."
+
+readme = "README.md"
+
+requires-python = ">=3.11"
+
+license = { text = "MIT" }
+
+authors = [
+    { name = "Kang Hai" }
+]
+
+keywords = [
+    "engineering",
+    "document-ai",
+    "document-intelligence",
+    "docling",
+    "tender-review",
+    "rag",
+    "engineering-review",
+    "compliance",
+    "contractual-analysis",
+    "risk-analysis",
+]
+
+dependencies = [
+    "docling>=2.0,<3.0",
+    "pypdf>=5.0,<7.0",
+    "pydantic>=2.0,<3.0",
+    "pyyaml>=6.0,<7.0",
+    "engineering-registry>=0.1.19,<0.2",
+    "engineering-execution>=0.1.11,<0.2",
+    "engineering-document-ai-brain>=0.1.13,<0.2",
+    "engineering-ai-reviewer>=0.1.0,<0.2",
+]
+
+
+[project.optional-dependencies]
+
+ai = [
+    "openai>=1.0",
+]
+
+dev = [
+    "pytest>=8.0,<9.0",
+    "pytest-cov>=5.0,<7.0",
+    "ruff>=0.6,<1.0",
+    "mypy>=1.10,<2.0",
+]
+
+
+[project.scripts]
+
+engineering-doc-ai = "pipelines.docling.ingest:main"
+
+
+[tool.setuptools]
+
+include-package-data = true
+
+[tool.setuptools.data-files]
+"share/engineering-ai-system/skills/engineering-document-review" = ["skills/engineering-document-review/SKILL.md"]
+"share/engineering-ai-system/skills/engineering-document-review/references" = ["skills/engineering-document-review/references/workflow-map.md"]
+"share/engineering-ai-system/skills/engineering-qa" = ["skills/engineering-qa/SKILL.md"]
+"share/engineering-ai-system/skills/engineering-qa/references" = ["skills/engineering-qa/references/qa-checklist.md"]
+"share/engineering-ai-system/skills/engineering-requirement-extraction" = ["skills/engineering-requirement-extraction/SKILL.md"]
+"share/engineering-ai-system/skills/engineering-scope-review" = ["skills/engineering-scope-review/SKILL.md"]
+"share/engineering-ai-system/skills/engineering-scope-review/references" = ["skills/engineering-scope-review/references/scope-method.md"]
+"share/engineering-ai-system/skills/engineering-proposal" = ["skills/engineering-proposal/SKILL.md"]
+"share/engineering-ai-system/skills/engineering-proposal/references" = ["skills/engineering-proposal/references/proposal-method.md"]
+"share/engineering-ai-system/skills/structural-review" = ["skills/structural-review/SKILL.md", "skills/structural-review/specialist.json"]
+"share/engineering-ai-system/skills/geotechnical-review" = ["skills/geotechnical-review/SKILL.md", "skills/geotechnical-review/specialist.json"]
+"share/engineering-ai-system/skills/marine-coastal-review" = ["skills/marine-coastal-review/SKILL.md", "skills/marine-coastal-review/specialist.json"]
+"share/engineering-ai-system/skills/hydraulic-environmental-review" = ["skills/hydraulic-environmental-review/SKILL.md", "skills/hydraulic-environmental-review/specialist.json"]
+"share/engineering-ai-system/skills/civil-review" = ["skills/civil-review/SKILL.md", "skills/civil-review/specialist.json"]
+"share/engineering-ai-system/skills/mechanical-review" = ["skills/mechanical-review/SKILL.md", "skills/mechanical-review/specialist.json"]
+"share/engineering-ai-system/skills/electrical-review" = ["skills/electrical-review/SKILL.md", "skills/electrical-review/specialist.json"]
+"share/engineering-ai-system/skills/quantity-surveyor-review" = ["skills/quantity-surveyor-review/SKILL.md", "skills/quantity-surveyor-review/specialist.json"]
+"share/engineering-ai-system/skills/risk-specialist-review" = ["skills/risk-specialist-review/SKILL.md", "skills/risk-specialist-review/specialist.json"]
+
+
+[tool.setuptools.packages.find]
+
+include = [
+    "pipelines*",
+    "agents*",
+    "engineering_ai_system*",
+]
+
+exclude = [
+    "build*",
+    "dist*",
+    "*.build*",
+    "*.dist*",
+]
+
+
+# ---------------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+
+testpaths = [
+    "tests",
+]
+
+python_files = [
+    "test_*.py",
+]
+
+python_classes = [
+    "Test*",
+]
+
+python_functions = [
+    "test_*",
+]
+
+addopts = [
+    "-ra",
+    "--strict-markers",
+]
+
+markers = [
+    "unit: Unit tests that do not require external services.",
+    "integration: Tests involving external libraries or processing engines.",
+    "slow: Tests that may take significant time.",
+    "docling: Tests requiring Docling.",
+]
+
+
+# ---------------------------------------------------------------------------
+# Coverage
+# ---------------------------------------------------------------------------
+
+[tool.coverage.run]
+
+branch = true
+
+source = [
+    "pipelines",
+    "agents",
+]
+
+
+[tool.coverage.report]
+
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+
+# ---------------------------------------------------------------------------
+# Ruff
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+
+line-length = 88
+
+target-version = "py311"
+
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "data",
+]
+
+
+[tool.ruff.lint]
+
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+]
+
+ignore = [
+    "E501",
+]
+
+
+# ---------------------------------------------------------------------------
+# Mypy
+# ---------------------------------------------------------------------------
+
+[tool.mypy]
+
+python_version = "3.11"
+
+warn_return_any = true
+warn_unused_configs = true
+check_untyped_defs = true
+disallow_untyped_defs = false
+no_implicit_optional = true
+
+exclude = [
+    "^tests/",
+]
+
+
+# ---------------------------------------------------------------------------
+# Project Environment Variables
+# ---------------------------------------------------------------------------
+
+[tool.uv]
+
+package = true

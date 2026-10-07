@@ -1,0 +1,14 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Engineering Controlled Output
+type: object
+required: [output_id, output_type, status, human_review_required]
+properties:
+  output_id: {type: string}
+  output_type: {type: string}
+  finding_id: {type: [string, 'null']}
+  status: {type: string}
+  source_evidence_ids: {type: array, items: {type: string}}
+  requirement_ids: {type: array, items: {type: string}}
+  data: {type: object}
+  human_review_required: {type: boolean}
+  warnings: {type: array, items: {type: string}}

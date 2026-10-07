@@ -1,0 +1,23 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Evidence Chunk
+type: object
+required:
+  - evidence_id
+  - document_id
+  - locator
+  - text
+properties:
+  evidence_id: {type: string}
+  document_id: {type: string}
+  document_number: {type: [string, 'null']}
+  title: {type: [string, 'null']}
+  revision: {type: [string, 'null']}
+  revision_date: {type: [string, 'null']}
+  issue_status: {type: [string, 'null']}
+  governing_status: {type: [string, 'null']}
+  discipline: {type: [string, 'null']}
+  section: {type: [string, 'null']}
+  locator: {type: string}
+  text: {type: string}
+  evidence_class: {type: string}
+  metadata: {type: object}

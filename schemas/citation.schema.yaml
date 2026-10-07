@@ -1,0 +1,291 @@
+version: 1
+
+citation_schema:
+
+  identity:
+
+    citation_id:
+      type: string
+      required: true
+      description: "Unique identifier for the citation."
+
+    citation_type:
+      type: string
+      required: true
+      allowed:
+        - document
+        - page
+        - section
+        - paragraph
+        - table
+        - figure
+        - drawing
+        - drawing_detail
+        - extracted_text
+        - extracted_table
+        - image
+        - calculation
+        - external_reference
+
+  source:
+
+    document_id:
+      type: string
+      required: true
+      description: "Unique document identifier."
+
+    document_number:
+      type: string
+      required: false
+
+    document_title:
+      type: string
+      required: false
+
+    document_type:
+      type: string
+      required: false
+
+    revision:
+      type: string
+      required: false
+
+    revision_date:
+      type: date
+      required: false
+
+    source_file:
+      type: string
+      required: false
+
+    source_hash:
+      type: string
+      required: false
+      description: "Hash identifying the exact source file."
+
+  location:
+
+    page:
+      type: integer
+      required: false
+
+    page_range:
+      type: string
+      required: false
+
+    section:
+      type: string
+      required: false
+
+    subsection:
+      type: string
+      required: false
+
+    paragraph:
+      type: string
+      required: false
+
+    table:
+      type: string
+      required: false
+
+    figure:
+      type: string
+      required: false
+
+    drawing_number:
+      type: string
+      required: false
+
+    drawing_revision:
+      type: string
+      required: false
+
+    detail_reference:
+      type: string
+      required: false
+
+    source_location:
+      type: string
+      required: true
+      description: "Human-readable source location."
+
+  content:
+
+    excerpt:
+      type: string
+      required: false
+      description: "Short source excerpt supporting the cited statement."
+
+    normalized_text:
+      type: string
+      required: false
+      description: "Normalized text used by the analysis engine."
+
+    content_type:
+      type: string
+      required: false
+      allowed:
+        - text
+        - heading
+        - paragraph
+        - table
+        - figure
+        - drawing
+        - caption
+        - footnote
+        - header
+        - footer
+        - formula
+        - code
+        - image
+        - other
+
+    element_id:
+      type: string
+      required: false
+      description: "Identifier assigned to an extracted document element."
+
+  extraction:
+
+    extraction_engine:
+      type: string
+      required: false
+
+    extraction_version:
+      type: string
+      required: false
+
+    extraction_method:
+      type: string
+      required: false
+      allowed:
+        - text
+        - OCR
+        - table
+        - layout
+        - drawing
+        - image
+        - manual
+        - other
+
+    extraction_quality:
+      type: string
+      required: false
+      allowed:
+        - high
+        - medium
+        - low
+        - insufficient
+        - unknown
+
+    ocr_used:
+      type: boolean
+      required: false
+
+  evidential_value:
+
+    evidence_role:
+      type: string
+      required: true
+      allowed:
+        - primary
+        - supporting
+        - contextual
+        - contradictory
+        - superseding
+        - reference_only
+
+    evidence_type:
+      type: string
+      required: true
+      allowed:
+        - source_fact
+        - interpretation
+        - assumption
+        - engineering_judgement
+        - recommendation
+        - unknown
+
+    supports:
+      type: array
+      items: string
+      required: false
+      description: "IDs of requirements, findings or risks supported by this citation."
+
+    contradicts:
+      type: array
+      items: string
+      required: false
+      description: "IDs of requirements, findings or risks contradicted by this citation."
+
+    supersedes:
+      type: array
+      items: string
+      required: false
+      description: "Citation or evidence IDs superseded by this source."
+
+  verification:
+
+    verification_status:
+      type: string
+      required: true
+      allowed:
+        - unverified
+        - source_verified
+        - independently_verified
+        - conflicting
+        - unable_to_verify
+
+    verified_by:
+      type: string
+      required: false
+
+    verification_date:
+      type: datetime
+      required: false
+
+    verification_notes:
+      type: string
+      required: false
+
+  traceability:
+
+    parent_citation_id:
+      type: string
+      required: false
+
+    related_citation_ids:
+      type: array
+      items: string
+      required: false
+
+    document_lineage:
+      type: array
+      items: string
+      required: false
+      description: "Related document IDs forming the revision or source lineage."
+
+  display:
+
+    short_reference:
+      type: string
+      required: false
+      description: "Compact citation displayed in reports."
+
+    full_reference:
+      type: string
+      required: false
+      description: "Full human-readable citation."
+
+    citation_format:
+      type: string
+      required: false
+      allowed:
+        - document_page
+        - document_section
+        - document_section_page
+        - drawing_revision
+        - table
+        - figure
+        - custom

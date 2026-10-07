@@ -1,0 +1,24 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Engineering Finding
+type: object
+required: [finding_id, title, finding, status, source_evidence_ids, risk_level, confidence]
+properties:
+  finding_id: {type: string}
+  title: {type: string}
+  finding: {type: string}
+  status: {type: string}
+  source_evidence_ids: {type: array, items: {type: string}}
+  requirement_ids: {type: array, items: {type: string}}
+  risk_level: {type: string}
+  risk_dimensions: {type: array, items: {type: string}}
+  required_action: {type: [string, 'null']}
+  responsibility_assignment_ids: {type: array, items: {type: string}}
+  technical_query_id: {type: [string, 'null']}
+  risk_record_id: {type: [string, 'null']}
+  decision_record_id: {type: [string, 'null']}
+  output_status:
+    type: string
+    enum: [open, in_progress, closed, accepted, rejected, unknown]
+  confidence: {type: string}
+  human_review_required: {type: boolean}
+  human_review_reason: {type: [string, 'null']}

@@ -1,0 +1,359 @@
+version: 1
+
+risk_schema:
+
+  identity:
+
+    risk_id:
+      type: string
+      required: true
+      description: "Unique stable identifier for the risk."
+
+    title:
+      type: string
+      required: true
+      description: "Concise title describing the risk."
+
+    description:
+      type: string
+      required: true
+      description: "Description of the risk event, cause and potential consequence."
+
+  classification:
+
+    risk_category:
+      type: string
+      required: true
+      allowed:
+        - technical
+        - contractual
+        - commercial
+        - programme
+        - regulatory
+        - hse
+        - environmental
+        - quality
+        - constructability
+        - interface
+        - operability
+        - procurement
+        - documentation
+        - other
+
+    risk_dimensions:
+      type: array
+      items: string
+      required: true
+      description: "One or more dimensions affected by the risk."
+
+    discipline:
+      type: array
+      items: string
+      required: false
+
+  source:
+
+    source_finding_id:
+      type: array
+      items: string
+      required: false
+      description: "Finding IDs that generated or support this risk."
+
+    source_requirement_id:
+      type: array
+      items: string
+      required: false
+      description: "Requirement IDs associated with the risk."
+
+    source_document_id:
+      type: array
+      items: string
+      required: false
+
+    source_location:
+      type: array
+      items: string
+      required: false
+
+  cause:
+
+    cause:
+      type: string
+      required: true
+      description: "Underlying cause or condition creating the risk."
+
+    contributing_factors:
+      type: array
+      items: string
+      required: false
+
+    trigger:
+      type: string
+      required: false
+      description: "Event or condition that could cause the risk to materialize."
+
+  consequence:
+
+    consequence:
+      type: string
+      required: true
+
+    technical:
+      type: string
+      required: false
+
+    contractual:
+      type: string
+      required: false
+
+    commercial:
+      type: string
+      required: false
+
+    programme:
+      type: string
+      required: false
+
+    regulatory:
+      type: string
+      required: false
+
+    hse:
+      type: string
+      required: false
+
+    environmental:
+      type: string
+      required: false
+
+    constructability:
+      type: string
+      required: false
+
+    interface:
+      type: string
+      required: false
+
+  assessment:
+
+    likelihood:
+      type: string
+      required: true
+      allowed:
+        - rare
+        - unlikely
+        - possible
+        - likely
+        - almost_certain
+
+    likelihood_score:
+      type: integer
+      required: false
+      minimum: 1
+      maximum: 5
+
+    consequence_level:
+      type: string
+      required: true
+      allowed:
+        - insignificant
+        - minor
+        - moderate
+        - major
+        - severe
+
+    consequence_score:
+      type: integer
+      required: false
+      minimum: 1
+      maximum: 5
+
+    overall_level:
+      type: string
+      required: true
+      allowed:
+        - low
+        - medium
+        - high
+        - critical
+
+    confidence:
+      type: string
+      required: true
+      allowed:
+        - low
+        - medium
+        - high
+
+    assessment_basis:
+      type: string
+      required: false
+      description: "Reasoning supporting the risk assessment."
+
+  controls:
+
+    existing_controls:
+      type: array
+      items: string
+      required: false
+
+    control_effectiveness:
+      type: string
+      required: false
+      allowed:
+        - effective
+        - partially_effective
+        - ineffective
+        - unknown
+        - not_assessed
+
+    residual_risk:
+      type: string
+      required: false
+      allowed:
+        - low
+        - medium
+        - high
+        - critical
+        - unknown
+
+  mitigation:
+
+    mitigation_actions:
+      type: array
+      items: string
+      required: false
+
+    preventive_actions:
+      type: array
+      items: string
+      required: false
+
+    contingency_actions:
+      type: array
+      items: string
+      required: false
+
+    responsible_party:
+      type: string
+      required: false
+
+    target_date:
+      type: date
+      required: false
+
+  commercial:
+
+    potential_cost_impact:
+      type: string
+      required: false
+
+    potential_variation:
+      type: boolean
+      required: false
+
+    potential_claim:
+      type: boolean
+      required: false
+
+    cost_estimate:
+      type: string
+      required: false
+
+  programme:
+
+    potential_delay:
+      type: boolean
+      required: false
+
+    estimated_delay:
+      type: string
+      required: false
+
+    critical_path_impact:
+      type: string
+      required: false
+      allowed:
+        - none
+        - possible
+        - probable
+        - confirmed
+        - unknown
+
+  regulatory:
+
+    approval_affected:
+      type: boolean
+      required: false
+
+    authority:
+      type: string
+      required: false
+
+    approval_or_permit:
+      type: string
+      required: false
+
+    compliance_status:
+      type: string
+      required: false
+      allowed:
+        - compliant
+        - potentially_non_compliant
+        - non_compliant
+        - pending
+        - unknown
+
+  response:
+
+    priority:
+      type: string
+      required: true
+      allowed:
+        - monitor
+        - resolve
+        - escalate
+        - stop_work
+
+    recommended_action:
+      type: string
+      required: true
+
+    escalation_required:
+      type: boolean
+      required: true
+
+    decision_required:
+      type: boolean
+      required: false
+
+  status:
+
+    status:
+      type: string
+      required: true
+      allowed:
+        - open
+        - under_review
+        - action_required
+        - accepted
+        - mitigated
+        - closed
+        - superseded
+        - unable_to_verify
+
+    owner:
+      type: string
+      required: false
+
+    reviewer:
+      type: string
+      required: false
+
+    created_at:
+      type: datetime
+      required: false
+
+    updated_at:
+      type: datetime
+      required: false
