@@ -1,0 +1,492 @@
+{
+  "schema_version": 1,
+  "suite_id": "engineering-assurance-p7-synthetic-v1",
+  "case_class": "synthetic",
+  "purpose": "Synthetic deterministic assurance fixtures; candidate expected outcomes require human adjudication before reliability claims.",
+  "cases": [
+    {
+      "case_id": "SYN-REQ-01",
+      "category": "requirement_coverage",
+      "phase": "execution",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "Check the mandatory handrail height requirement against the supplied drawing.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-REQ",
+          "document_id": "SYN-DOC-REQ",
+          "revision": "A",
+          "locator": "detail 4",
+          "text": "The handrail shall be 1100 mm high.",
+          "sha256": "976ec659191d3f52db5068c64c316aa4f099e6dda8041d80bf8a7d1fc9285bd9"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-REQ-HEIGHT"
+        ],
+        "requirement_ids": [
+          "REQ-HEIGHT"
+        ],
+        "evidence_ids": [
+          "SYN-E-REQ"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [],
+        "overall_status": "hold",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "drop_required_finding",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-CITE-01",
+      "category": "evidence_grounding",
+      "phase": "execution",
+      "severity": "major",
+      "seeded_defect": true,
+      "objective": "Report the bearing plate width using only cited evidence.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-CITE",
+          "document_id": "SYN-DOC-CITE",
+          "revision": "A",
+          "locator": "table 2",
+          "text": "Bearing plate width: 300 mm.",
+          "sha256": "4078881c0f89ca08d36d9074f37ef88df72f81bf82f29c1ba35d1cba2c7e5ec1"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-PLATE-WIDTH"
+        ],
+        "requirement_ids": [
+          "REQ-PLATE"
+        ],
+        "evidence_ids": [
+          "SYN-E-CITE"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [],
+        "overall_status": "conditional",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "invent_citation",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-REV-01",
+      "category": "governing_revision",
+      "phase": "execution",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "Use the source proven to govern; a later draft is not automatically current.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-REV-A",
+          "document_id": "SYN-DOC-REV",
+          "revision": "A",
+          "locator": "register",
+          "text": "Revision A is approved and governing.",
+          "sha256": "72cb49411c2a346f021919ca0fc4326bcef486a238a748ca0be30d41794dec2b"
+        },
+        {
+          "evidence_id": "SYN-E-REV-B",
+          "document_id": "SYN-DOC-REV",
+          "revision": "B",
+          "locator": "title block",
+          "text": "Revision B is marked draft; approval is not evidenced.",
+          "sha256": "5275c8f3fbbc0ec1d86ed57f6324e735c59764e36b72366284a91f57a2ab77a7"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-REVISION"
+        ],
+        "requirement_ids": [
+          "REQ-REVISION"
+        ],
+        "evidence_ids": [
+          "SYN-E-REV-A"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [],
+        "overall_status": "conditional",
+        "governing_revisions": {
+          "SYN-DOC-REV": "A"
+        },
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "accept_wrong_revision",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-DEP-01",
+      "category": "cross_task_consistency",
+      "phase": "integration",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "Check that downstream design reactions match the upstream model revision.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-UP",
+          "document_id": "SYN-DOC-UP",
+          "revision": "2",
+          "locator": "reaction table",
+          "text": "Upstream model reaction is 100 kN.",
+          "sha256": "cdc196c9a18434916e10b90a8c6c32a39b507d12ed09e7b98c76b9fef149c802"
+        },
+        {
+          "evidence_id": "SYN-E-DOWN",
+          "document_id": "SYN-DOC-DOWN",
+          "revision": "1",
+          "locator": "input table",
+          "text": "Downstream check uses 120 kN.",
+          "sha256": "acd1ce1669ebcf5beb13c18282dade77c9ac3bd44e604fd4bf734c8ed4f273ae"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-REACTION-MISMATCH"
+        ],
+        "requirement_ids": [
+          "REQ-REACTION-CONSISTENCY"
+        ],
+        "evidence_ids": [
+          "SYN-E-UP",
+          "SYN-E-DOWN"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [
+          "upstream-downstream-reaction-mismatch"
+        ],
+        "overall_status": "hold",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "miss_cross_task_conflict",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-UNK-01",
+      "category": "insufficient_evidence",
+      "phase": "execution",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "Determine whether the foundation is acceptable when the ground report is absent.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-UNK",
+          "document_id": "SYN-DOC-UNK",
+          "revision": "A",
+          "locator": "document list",
+          "text": "No ground investigation report is included in the controlled source set.",
+          "sha256": "b967117b543b186cb2b2938af0f87e9a456a8f68470b1c5796cc1037f21d087c"
+        }
+      ],
+      "expected": {
+        "finding_ids": [],
+        "requirement_ids": [],
+        "evidence_ids": [
+          "SYN-E-UNK"
+        ],
+        "unknowns": [
+          "foundation soil parameters"
+        ],
+        "assumptions": [],
+        "conflicts": [],
+        "overall_status": "hold",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "clear_despite_unknown",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-ASM-01",
+      "category": "assumption_control",
+      "phase": "execution",
+      "severity": "major",
+      "seeded_defect": true,
+      "objective": "Review the pile check where groundwater level is an unverified working assumption.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-ASM",
+          "document_id": "SYN-DOC-ASM",
+          "revision": "A",
+          "locator": "calculation note",
+          "text": "Groundwater level assumed at RL 0.0 m; no monitoring evidence supplied.",
+          "sha256": "e41aea3028bfbcd815fff9d6afda6acd1c8a82c15f400fddd9de86a75c3f8c99"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-GROUNDWATER-ASSUMPTION"
+        ],
+        "requirement_ids": [
+          "REQ-PILE-CHECK"
+        ],
+        "evidence_ids": [
+          "SYN-E-ASM"
+        ],
+        "unknowns": [
+          "design groundwater level"
+        ],
+        "assumptions": [
+          "groundwater level at RL 0.0 m is unverified"
+        ],
+        "conflicts": [],
+        "overall_status": "conditional",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "omit_assumption_control",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-G1-01",
+      "category": "gate1_plan_alignment",
+      "phase": "gate1",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "Client requires comparison of two revisions; proposed plan only counts pages. Assess Gate 1.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-G1",
+          "document_id": "SYN-DOC-G1",
+          "revision": "B",
+          "locator": "client brief",
+          "text": "Compare the design loads in revisions A and B.",
+          "sha256": "65fbc2cd6aac682a6d115a1a154d33afe36f5cc901820ae24d5005a5c7b01572"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-PLAN-MISALIGNED"
+        ],
+        "requirement_ids": [
+          "REQ-REVISION-COMPARISON"
+        ],
+        "evidence_ids": [
+          "SYN-E-G1"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [],
+        "overall_status": "hold",
+        "governing_revisions": {},
+        "gate1_verdict": "reject",
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "gate1_approve_misaligned_plan",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-G2-01",
+      "category": "gate2_integrated_defect",
+      "phase": "gate2",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "Two V2 outputs use incompatible load combinations. Assess the integrated result at Gate 2.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-G2-A",
+          "document_id": "SYN-DOC-G2-A",
+          "revision": "1",
+          "locator": "load table",
+          "text": "Specialist A uses load combination ULS-1.",
+          "sha256": "515ca9f045f17d77ed11ce0d16500892bcb6586b0de31aa79cba34db246abd3b"
+        },
+        {
+          "evidence_id": "SYN-E-G2-B",
+          "document_id": "SYN-DOC-G2-B",
+          "revision": "1",
+          "locator": "load table",
+          "text": "Specialist B uses load combination ULS-2.",
+          "sha256": "e5cc70afe49ae754dbb5081c0cd57175530b771a6f451619d3bb75bef19efd56"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-INTEGRATION-CONFLICT"
+        ],
+        "requirement_ids": [
+          "REQ-COMMON-BASIS"
+        ],
+        "evidence_ids": [
+          "SYN-E-G2-A",
+          "SYN-E-G2-B"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [
+          "incompatible-load-combinations"
+        ],
+        "overall_status": "hold",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": "material_concern",
+        "calculation": null,
+        "human_review_required": false
+      },
+      "fault_injection": "gate2_clear_despite_defect",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-KNW-01",
+      "category": "organizational_knowledge_conflict",
+      "phase": "planning",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "A validated lesson recommends 10 kN; the current project requirement specifies 20 kN.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-KNW",
+          "document_id": "SYN-DOC-KNW",
+          "revision": "A",
+          "locator": "design basis",
+          "text": "Current project design load shall be 20 kN.",
+          "sha256": "82167379f82d530a472f517416f870534912d302b452d802b925b6ad6fd6765e"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-KNOWLEDGE-CONFLICT"
+        ],
+        "requirement_ids": [
+          "REQ-LOAD-20"
+        ],
+        "evidence_ids": [
+          "SYN-E-KNW"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [
+          "ORG-LESSON-10KN conflicts with REQ-LOAD-20"
+        ],
+        "overall_status": "hold",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": false,
+        "forbidden_applied_lessons": [
+          "ORG-LESSON-10KN"
+        ]
+      },
+      "fault_injection": "apply_conflicting_lesson",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-HUM-01",
+      "category": "human_escalation",
+      "phase": "execution",
+      "severity": "critical",
+      "seeded_defect": true,
+      "objective": "A proposed departure changes the governing fire resistance requirement. Identify authority needed.",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-HUM",
+          "document_id": "SYN-DOC-HUM",
+          "revision": "A",
+          "locator": "fire strategy",
+          "text": "The project fire-resistance requirement is 120 minutes.",
+          "sha256": "a8bd484f970a2d07b8675b47a2b83f5e2b5929e91816aa30cf60bb3210a2315d"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-FIRE-DEVIATION"
+        ],
+        "requirement_ids": [
+          "REQ-FIRE-120"
+        ],
+        "evidence_ids": [
+          "SYN-E-HUM"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [],
+        "overall_status": "hold",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": null,
+        "human_review_required": true
+      },
+      "fault_injection": "omit_human_escalation",
+      "golden_review_status": "candidate_not_human_reviewed"
+    },
+    {
+      "case_id": "SYN-CALC-01",
+      "category": "independent_calculation",
+      "phase": "execution",
+      "severity": "major",
+      "seeded_defect": true,
+      "objective": "Verify the arithmetic stress result from an axial force of 100 kN and area of 1000 mm².",
+      "source_snapshots": [
+        {
+          "evidence_id": "SYN-E-CALC",
+          "document_id": "SYN-DOC-CALC",
+          "revision": "A",
+          "locator": "calculation input",
+          "text": "Axial force = 100 kN; area = 1000 mm².",
+          "sha256": "782dd975dd222babd2a8765078af0e394f69a2e6a029ca52557a154475c6933a"
+        }
+      ],
+      "expected": {
+        "finding_ids": [
+          "F-STRESS-CHECK"
+        ],
+        "requirement_ids": [
+          "REQ-STRESS-ARITHMETIC"
+        ],
+        "evidence_ids": [
+          "SYN-E-CALC"
+        ],
+        "unknowns": [],
+        "assumptions": [],
+        "conflicts": [],
+        "overall_status": "conditional",
+        "governing_revisions": {},
+        "gate1_verdict": null,
+        "gate2_verdict": null,
+        "calculation": {
+          "result_id": "stress",
+          "value": 100.0,
+          "unit": "MPa",
+          "tolerance": 0.01
+        },
+        "human_review_required": false
+      },
+      "fault_injection": "wrong_calculation",
+      "golden_review_status": "candidate_not_human_reviewed"
+    }
+  ]
+}

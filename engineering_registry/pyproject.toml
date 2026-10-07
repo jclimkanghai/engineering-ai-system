@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "engineering-registry"
+version = "0.1.19"
+description = "Project-scoped engineering memory, human control and bounded AI delegation"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+desk = ["engineering-execution>=0.1.11,<0.2", "engineering-document-ai-brain>=0.1.13,<0.2"]
+mcp = ["mcp==1.30.0", "engineering-execution>=0.1.11,<0.2", "engineering-document-ai-brain>=0.1.13,<0.2"]
+
+[project.scripts]
+engineering-registry = "engineering_registry.cli:main"
+engineering-registry-mcp = "engineering_registry.mcp_server:main"
+engineering-registry-migrate = "engineering_registry.migrate_cli:main"
+
+[tool.setuptools]
+packages = ["engineering_registry"]
+package-dir = {engineering_registry = "."}

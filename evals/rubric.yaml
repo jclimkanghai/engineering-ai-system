@@ -1,0 +1,24 @@
+version: 1
+scoring:
+  levels:
+    0: Fails or omits the dimension.
+    1: Partially meets the dimension or leaves a material ambiguity.
+    2: Meets the dimension with clear source-based reasoning.
+  dimensions:
+    source_traceability: {weight: 3, critical: true}
+    evidence_classification: {weight: 2, critical: true}
+    revision_control: {weight: 2, critical: false}
+    uncertainty: {weight: 3, critical: true}
+    steelman_quality: {weight: 1, critical: false}
+    completeness: {weight: 2, critical: false}
+    professional_boundary: {weight: 2, critical: false}
+    response_fit: {weight: 1, critical: false}
+  pass_gate:
+    raw_score_minimum: 12
+    critical_dimension_minimum: 1
+    weighting_note: "Weights guide human review priorities; the initial pass gate follows evals/engineering_review_style.md total out of 16 and critical-dimension minimums."
+human_review_instructions:
+  - Score each dimension from 0 to 2 using evals/engineering_review_style.md.
+  - Review the model response against the case prompt, requirement, and synthetic evidence.
+  - Treat invented source references, requirements, revisions, clauses, parties, or technical values as a factual accuracy failure.
+  - Record reviewer, date, model/version, case ID, score by dimension, and notes in the evaluation report.

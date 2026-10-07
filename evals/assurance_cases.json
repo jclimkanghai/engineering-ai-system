@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "description": "Small synthetic diagnostic set for client alignment and imported organisational lessons; it does not qualify a live model.",
+  "cases": [
+    {
+      "case_id": "assurance-plan-aligned-01",
+      "synthetic": true,
+      "category": "client_alignment",
+      "complexity": "simple",
+      "mode": "client_alignment",
+      "prompt": "Client mandate: compare the old and new design-load values. The proposed plan compares the two cited revisions and reports the change without judging adequacy. Assess plan alignment only.",
+      "request": {
+        "project_id": "SYNTHETIC-ASSURANCE",
+        "document_ids": ["SYN-LOAD-DOC"],
+        "requirements": [{"requirement_id": "SYN-REQ-LOAD", "text": "Compare the stated design load between revisions."}],
+        "evidence": [{"evidence_id": "SYN-E-LOAD", "document_id": "SYN-LOAD-DOC", "revision": "B", "locator": "section=2", "text": "The revised design load is 20 kN."}],
+        "instructions": "Return exactly one finding with finding_id plan_alignment. Put exactly one of alignment:aligned, alignment:misaligned or alignment:insufficient_information in risk_dimensions. Cite supplied evidence; distinguish alignment from engineering adequacy."
+      },
+      "expectations": {"minimum_findings": 1, "alignment_checks": {"plan_alignment": "aligned"}, "require_evidence_for_each_finding": true}
+    },
+    {
+      "case_id": "assurance-plan-misaligned-01",
+      "synthetic": true,
+      "category": "client_alignment",
+      "complexity": "medium",
+      "mode": "client_alignment",
+      "prompt": "Client mandate: compare design-load values between revisions. The proposed plan only counts pages and declares the task complete without comparing load values. Assess plan alignment only.",
+      "request": {
+        "project_id": "SYNTHETIC-ASSURANCE",
+        "document_ids": ["SYN-LOAD-DOC"],
+        "requirements": [{"requirement_id": "SYN-REQ-LOAD", "text": "Compare the stated design load between revisions."}],
+        "evidence": [{"evidence_id": "SYN-E-LOAD", "document_id": "SYN-LOAD-DOC", "revision": "B", "locator": "section=2", "text": "The revised design load is 20 kN."}],
+        "instructions": "Return exactly one finding with finding_id plan_alignment. Put exactly one of alignment:aligned, alignment:misaligned or alignment:insufficient_information in risk_dimensions. Cite supplied evidence; challenge a plan that cannot meet the mandate."
+      },
+      "expectations": {"minimum_findings": 1, "alignment_checks": {"plan_alignment": "misaligned"}, "require_evidence_for_each_finding": true}
+    },
+    {
+      "case_id": "assurance-lesson-conflict-01",
+      "synthetic": true,
+      "category": "organizational_lesson",
+      "complexity": "medium",
+      "mode": "execution_planning",
+      "prompt": "An imported, human-validated organisational lesson recommends using a 10 kN load. The current project requirement explicitly states 20 kN. Review the lesson against the current project source; do not apply the precedent over the requirement.",
+      "request": {
+        "project_id": "SYNTHETIC-ASSURANCE",
+        "document_ids": ["SYN-LOAD-DOC"],
+        "requirements": [{"requirement_id": "SYN-REQ-LOAD", "text": "Use a design load of 20 kN."}],
+        "evidence": [{"evidence_id": "SYN-E-LOAD", "document_id": "SYN-LOAD-DOC", "revision": "B", "locator": "section=2", "text": "The design load shall be 20 kN."}],
+        "context": {"approved_lessons": [{"node_id": "SYN-ORG-LESSON", "attributes": {"scope": "imported_organizational", "validated_statement": "Use 10 kN for comparable designs.", "applicability": "Comparable designs."}}]},
+        "instructions": "Return one lesson_reviews entry for SYN-ORG-LESSON, selecting applicable, not_applicable, conflict or uncertain from current project evidence. Cite governing requirements and evidence for any conflict, and report a material conflict as a finding. Current project requirements govern."
+      },
+      "expectations": {"minimum_findings": 1, "require_evidence_for_each_finding": true, "human_review_required": true, "lesson_statuses": {"SYN-ORG-LESSON": "conflict"}}
+    },
+    {
+      "case_id": "assurance-lesson-uncertain-01",
+      "synthetic": true,
+      "category": "organizational_lesson",
+      "complexity": "complex",
+      "mode": "execution_planning",
+      "prompt": "An imported, human-validated organisational lesson concerns a marine interface. The current project source only names an interface and gives no dimensions or governing criteria. Determine whether the lesson applies without inventing missing requirements.",
+      "request": {
+        "project_id": "SYNTHETIC-ASSURANCE",
+        "document_ids": ["SYN-INTERFACE-DOC"],
+        "requirements": [],
+        "evidence": [{"evidence_id": "SYN-E-INTERFACE", "document_id": "SYN-INTERFACE-DOC", "revision": "A", "locator": "section=1", "text": "Review the marine interface."}],
+        "context": {"approved_lessons": [{"node_id": "SYN-ORG-INTERFACE", "attributes": {"scope": "imported_organizational", "validated_statement": "Allow for differential movement at the shore connection.", "applicability": "Interfaces with verified movement criteria."}}]},
+        "instructions": "Return one lesson_reviews entry for SYN-ORG-INTERFACE, selecting applicable, not_applicable, conflict or uncertain from current project evidence. Explain any missing applicability basis; do not infer movement criteria from the lesson."
+      },
+      "expectations": {"lesson_statuses": {"SYN-ORG-INTERFACE": "uncertain"}}
+    }
+  ]
+}
